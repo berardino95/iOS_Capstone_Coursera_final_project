@@ -11,7 +11,7 @@ import SwiftUI
 struct iOS_Capstone_Coursera_final_projectApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Onboarding()
         }
     }
 }
