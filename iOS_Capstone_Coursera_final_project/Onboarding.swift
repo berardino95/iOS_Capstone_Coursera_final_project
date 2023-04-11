@@ -17,59 +17,64 @@ struct Onboarding: View {
     @State private var lastName: String = ""
     @State private var email: String = ""
     @State var isShowed : Bool = false
+    @State private var isLoggedIn: Bool = false
     
     var body: some View {
-        ZStack{
-            Color(hex: 0xEDEFEE)
-                .ignoresSafeArea()
-            
-            VStack(alignment: .leading){
+        NavigationStack{
+            ZStack{
+                Color(hex: 0xEDEFEE)
+                    .ignoresSafeArea()
                 
-                HStack{
-                    Spacer()
-                    Image("Logo")
-                        .padding(.bottom, 40)
+                VStack(alignment: .leading){
+                    
+                    HStack{
+                        Spacer()
+                        Image("Logo")
+                            .padding(.bottom, 40)
+                        Spacer()
+                    }
+                    
+                    Text("First Name")
+                        .padding(.leading, 10)
+                    TextField("Enter First name...", text:$firstName)
+                        .textFieldStyle(OnboardingTextFieldStyle())
+                        .autocorrectionDisabled(true)
+                    
+                    Text("Last Name")
+                        .padding(.leading, 10)
+                    TextField("Enter Last name...", text:$lastName)
+                        .textFieldStyle(OnboardingTextFieldStyle())
+                        .autocorrectionDisabled(true)
+                    
+                    Text("Email")
+                        .padding(.leading, 10)
+                    TextField("Enter Email...", text:$email)
+                        .textFieldStyle(OnboardingTextFieldStyle())
+                        .keyboardType(.emailAddress)
+                        .autocorrectionDisabled(true)
+                        .textInputAutocapitalization(.never)
+                    
+                    Button("Register", action: buttonPressed )
+                        .buttonStyle(MyButton(isShowed: $isShowed))
+                    
                     Spacer()
                 }
-                
-                Text("First Name")
-                    .padding(.leading, 10)
-                TextField("Enter First name...", text:$firstName)
-                    .textFieldStyle(OnboardingTextFieldStyle())
-                    .autocorrectionDisabled(true)
-                
-                Text("Last Name")
-                    .padding(.leading, 10)
-                TextField("Enter Last name...", text:$lastName)
-                    .textFieldStyle(OnboardingTextFieldStyle())
-                    .autocorrectionDisabled(true)
-                
-                Text("Email")
-                    .padding(.leading, 10)
-                TextField("Enter Email...", text:$email)
-                    .textFieldStyle(OnboardingTextFieldStyle())
-                    .keyboardType(.emailAddress)
-                    .autocorrectionDisabled(true)
-                    .textInputAutocapitalization(.never)
-                
-                Button("Register", action: buttonPressed )
-                    .buttonStyle(MyButton(isShowed: $isShowed))
-                Spacer()
+                .padding(.all, 30.0)
             }
-            .padding(.all, 30.0)
+            .navigationDestination(isPresented: $isLoggedIn) {
+                Home()
+            }
         }
-        
-        
         
     }
     
-    
-    func buttonPressed() {
+    public func buttonPressed() {
         if (firstName.isEmpty || lastName.isEmpty || email.isEmpty) {
             isShowed.toggle()
+            isLoggedIn = false
+            
         } else{
             let defaults = UserDefaults.standard
-            
             defaults.set(firstName, forKey: kFirstName)
             defaults.set(lastName, forKey: kLastName)
             defaults.set(email, forKey: kEmail)
@@ -78,30 +83,32 @@ struct Onboarding: View {
             print(defaults.object(forKey: kLastName) as? String ?? String())
             print(defaults.object(forKey: kEmail) as? String ?? String())
             print("saved")
+            
+            isLoggedIn = true
         }
     }
-    
-    
-    
-    //Button style
-    struct MyButton: ButtonStyle {
-        
-        @Binding var isShowed: Bool
-        
-        func makeBody(configuration: Configuration) -> some View {
-            configuration.label
-                .foregroundColor(.white)
-                .frame(height: 40)
-                .frame(maxWidth: .infinity)
-                .background(configuration.isPressed ? Color(hex: 0xF4CE14) : Color(hex: 0x495E57))
-                .cornerRadius(10)
-                .alert("Something is empty", isPresented: $isShowed) {
-                    Button("OK", role: .cancel){}
-            }
-        }
-    }
-    
 }
+
+
+
+//Button style
+struct MyButton: ButtonStyle {
+    
+    @Binding var isShowed: Bool
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(.white)
+            .frame(height: 40)
+            .frame(maxWidth: .infinity)
+            .background(configuration.isPressed ? Color(hex: 0xF4CE14) : Color(hex: 0x495E57))
+            .cornerRadius(10)
+            .alert("Something is empty", isPresented: $isShowed) {
+                Button("OK", role: .cancel){}
+            }
+    }
+}
+
 
 //TextField Style
 struct OnboardingTextFieldStyle : TextFieldStyle{

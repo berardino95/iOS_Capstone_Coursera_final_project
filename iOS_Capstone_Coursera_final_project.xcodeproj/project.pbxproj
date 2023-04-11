@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F26B53729E5F4620083D19E /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F26B53629E5F4620083D19E /* Home.swift */; };
+		7F46D30B29E5F7D700FDE3BD /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F46D30A29E5F7D700FDE3BD /* Menu.swift */; };
+		7F46D30D29E6049200FDE3BD /* NavigationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F46D30C29E6049200FDE3BD /* NavigationTest.swift */; };
 		7F95929429E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F95929329E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift */; };
 		7F95929829E54BC100022B95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F95929729E54BC100022B95 /* Assets.xcassets */; };
 		7F95929B29E54BC100022B95 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F95929A29E54BC100022B95 /* Preview Assets.xcassets */; };
@@ -14,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7F26B53629E5F4620083D19E /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		7F46D30A29E5F7D700FDE3BD /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		7F46D30C29E6049200FDE3BD /* NavigationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTest.swift; sourceTree = "<group>"; };
 		7F95929029E54BC000022B95 /* iOS_Capstone_Coursera_final_project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Capstone_Coursera_final_project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F95929329E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Capstone_Coursera_final_projectApp.swift; sourceTree = "<group>"; };
 		7F95929729E54BC100022B95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +57,9 @@
 		7F95929229E54BC000022B95 /* iOS_Capstone_Coursera_final_project */ = {
 			isa = PBXGroup;
 			children = (
+				7F46D30C29E6049200FDE3BD /* NavigationTest.swift */,
+				7F26B53629E5F4620083D19E /* Home.swift */,
+				7F46D30A29E5F7D700FDE3BD /* Menu.swift */,
 				7F95929329E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift */,
 				7F9592A129E54C6E00022B95 /* Onboarding.swift */,
 				7F95929729E54BC100022B95 /* Assets.xcassets */,
@@ -138,6 +147,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F9592A229E54C6E00022B95 /* Onboarding.swift in Sources */,
+				7F26B53729E5F4620083D19E /* Home.swift in Sources */,
+				7F46D30D29E6049200FDE3BD /* NavigationTest.swift in Sources */,
+				7F46D30B29E5F7D700FDE3BD /* Menu.swift in Sources */,
 				7F95929429E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
