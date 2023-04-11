@@ -7,33 +7,101 @@
 
 import SwiftUI
 
+var kFirstName = "FirstName"
+var kLastName = "LastName"
+var kEmail = "email"
+
 struct Onboarding: View {
     
     @State  private var firstName: String = ""
     @State private var lastName: String = ""
     @State private var email: String = ""
+    @State var isShowed : Bool = false
     
     var body: some View {
-        VStack(spacing: 20.0){
+        ZStack{
+            Color(hex: 0xEDEFEE)
+                .ignoresSafeArea()
             
-            Image("Logo")
-                .padding(.bottom, 40)
-            
-            TextField("First name", text:$firstName)
-                .textFieldStyle(OnboardingTextFieldStyle())
+            VStack(alignment: .leading){
                 
-            TextField("Last name", text:$lastName)
-                .textFieldStyle(OnboardingTextFieldStyle())
-            
-            TextField("Email", text:$email)
-                .textFieldStyle(OnboardingTextFieldStyle())
-            
+                HStack{
+                    Spacer()
+                    Image("Logo")
+                        .padding(.bottom, 40)
+                    Spacer()
+                }
+                
+                Text("First Name")
+                    .padding(.leading, 10)
+                TextField("Enter First name...", text:$firstName)
+                    .textFieldStyle(OnboardingTextFieldStyle())
+                    .autocorrectionDisabled(true)
+                
+                Text("Last Name")
+                    .padding(.leading, 10)
+                TextField("Enter Last name...", text:$lastName)
+                    .textFieldStyle(OnboardingTextFieldStyle())
+                    .autocorrectionDisabled(true)
+                
+                Text("Email")
+                    .padding(.leading, 10)
+                TextField("Enter Email...", text:$email)
+                    .textFieldStyle(OnboardingTextFieldStyle())
+                    .keyboardType(.emailAddress)
+                    .autocorrectionDisabled(true)
+                    .textInputAutocapitalization(.never)
+                
+                Button("Register", action: buttonPressed )
+                    .buttonStyle(MyButton(isShowed: $isShowed))
+                Spacer()
+            }
+            .padding(.all, 30.0)
         }
-        .padding(/*@START_MENU_TOKEN@*/.all, 30.0/*@END_MENU_TOKEN@*/)
+        
+        
+        
     }
+    
+    
+    func buttonPressed() {
+        if (firstName.isEmpty || lastName.isEmpty || email.isEmpty) {
+            isShowed.toggle()
+        } else{
+            let defaults = UserDefaults.standard
+            
+            defaults.set(firstName, forKey: kFirstName)
+            defaults.set(lastName, forKey: kLastName)
+            defaults.set(email, forKey: kEmail)
+            
+            print(defaults.object(forKey: kFirstName) as? String ?? String())
+            print(defaults.object(forKey: kLastName) as? String ?? String())
+            print(defaults.object(forKey: kEmail) as? String ?? String())
+            print("saved")
+        }
+    }
+    
+    
+    
+    //Button style
+    struct MyButton: ButtonStyle {
+        
+        @Binding var isShowed: Bool
+        
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+                .foregroundColor(.white)
+                .frame(height: 40)
+                .frame(maxWidth: .infinity)
+                .background(configuration.isPressed ? Color(hex: 0xF4CE14) : Color(hex: 0x495E57))
+                .cornerRadius(10)
+                .alert("Something is empty", isPresented: $isShowed) {
+                    Button("OK", role: .cancel){}
+            }
+        }
+    }
+    
 }
-
-
 
 //TextField Style
 struct OnboardingTextFieldStyle : TextFieldStyle{
@@ -45,8 +113,9 @@ struct OnboardingTextFieldStyle : TextFieldStyle{
                 .stroke(Color(hex: 0x495E57), lineWidth: 1.5)
                 .frame(height: 40)
         }
+        .padding(.bottom, 20)
         
-
+        
     }
 }
 
