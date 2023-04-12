@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-var kFirstName = "FirstName"
-var kLastName = "LastName"
-var kEmail = "email"
+let k = K()
 
 struct Onboarding: View {
     
@@ -17,7 +15,7 @@ struct Onboarding: View {
     @State private var lastName: String = ""
     @State private var email: String = ""
     @State var isShowed : Bool = false
-    @State private var isLoggedIn: Bool = false
+    @State var isLoggedIn: Bool = false
     
     var body: some View {
         NavigationStack{
@@ -55,7 +53,7 @@ struct Onboarding: View {
                         .textInputAutocapitalization(.never)
                     
                     Button("Register", action: buttonPressed )
-                        .buttonStyle(MyButton(isShowed: $isShowed))
+                        .buttonStyle(RegisterButton(isShowed: $isShowed))
                     
                     Spacer()
                 }
@@ -75,16 +73,14 @@ struct Onboarding: View {
             
         } else{
             let defaults = UserDefaults.standard
-            defaults.set(firstName, forKey: kFirstName)
-            defaults.set(lastName, forKey: kLastName)
-            defaults.set(email, forKey: kEmail)
-            
-            print(defaults.object(forKey: kFirstName) as? String ?? String())
-            print(defaults.object(forKey: kLastName) as? String ?? String())
-            print(defaults.object(forKey: kEmail) as? String ?? String())
-            print("saved")
-            
+            defaults.set(firstName, forKey: k.firstName)
+            defaults.set(lastName, forKey: k.lastName)
+            defaults.set(email, forKey: k.email)
             isLoggedIn = true
+            defaults.set(isLoggedIn, forKey: k.isLoggedIn)
+            
+            firstName = "" ; lastName = "" ; email = ""
+            
         }
     }
 }
@@ -92,7 +88,7 @@ struct Onboarding: View {
 
 
 //Button style
-struct MyButton: ButtonStyle {
+struct RegisterButton: ButtonStyle {
     
     @Binding var isShowed: Bool
     

@@ -29,6 +29,7 @@ struct NavigationTest: View {
     }
 }
 
+
 struct NavigationTest_Previews: PreviewProvider {
     static var previews: some View {
         NavigationTest()
