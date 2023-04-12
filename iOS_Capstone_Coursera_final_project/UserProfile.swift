@@ -37,8 +37,6 @@ struct UserProfile: View {
                 Text(email)
                     .padding(.top,1)
                 
-                //Try
-                
                 Spacer()
                     .frame(height: 30)
                 
