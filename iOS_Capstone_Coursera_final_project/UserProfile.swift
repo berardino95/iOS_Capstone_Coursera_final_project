@@ -37,7 +37,7 @@ struct UserProfile: View {
                 Text(email)
                     .padding(.top,1)
                 
-                Text("Test prova pull")
+                //Try
                 
                 Spacer()
                     .frame(height: 30)
