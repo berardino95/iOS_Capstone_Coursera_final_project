@@ -10,25 +10,35 @@
 		7F26B53729E5F4620083D19E /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F26B53629E5F4620083D19E /* Home.swift */; };
 		7F2713E229E694C2000ACB6C /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2713E129E694C2000ACB6C /* UserProfile.swift */; };
 		7F2713E429E69801000ACB6C /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2713E329E69801000ACB6C /* K.swift */; };
+		7F3208D329E7E2F40029C6B1 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3208D129E7E2F40029C6B1 /* Persistence.swift */; };
+		7F3208D529E7E3420029C6B1 /* MenuList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3208D429E7E3420029C6B1 /* MenuList.swift */; };
+		7F3208D729E7E3550029C6B1 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3208D629E7E3550029C6B1 /* MenuItem.swift */; };
+		7F3208DA29E7F12E0029C6B1 /* ExampleDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7F3208D829E7F12E0029C6B1 /* ExampleDatabase.xcdatamodeld */; };
 		7F46D30B29E5F7D700FDE3BD /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F46D30A29E5F7D700FDE3BD /* Menu.swift */; };
-		7F46D30D29E6049200FDE3BD /* NavigationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F46D30C29E6049200FDE3BD /* NavigationTest.swift */; };
 		7F95929429E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F95929329E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift */; };
 		7F95929829E54BC100022B95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F95929729E54BC100022B95 /* Assets.xcassets */; };
 		7F95929B29E54BC100022B95 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F95929A29E54BC100022B95 /* Preview Assets.xcassets */; };
 		7F9592A229E54C6E00022B95 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9592A129E54C6E00022B95 /* Onboarding.swift */; };
+		7F9C816129E8A09E002ACFD5 /* Dish+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C815F29E8A09E002ACFD5 /* Dish+CoreDataClass.swift */; };
+		7F9C816229E8A09E002ACFD5 /* Dish+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C816029E8A09E002ACFD5 /* Dish+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7F26B53629E5F4620083D19E /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		7F2713E129E694C2000ACB6C /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		7F2713E329E69801000ACB6C /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		7F3208D129E7E2F40029C6B1 /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		7F3208D429E7E3420029C6B1 /* MenuList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuList.swift; sourceTree = "<group>"; };
+		7F3208D629E7E3550029C6B1 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		7F3208D929E7F12E0029C6B1 /* ExampleDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExampleDatabase.xcdatamodel; sourceTree = "<group>"; };
 		7F46D30A29E5F7D700FDE3BD /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
-		7F46D30C29E6049200FDE3BD /* NavigationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTest.swift; sourceTree = "<group>"; };
 		7F95929029E54BC000022B95 /* iOS_Capstone_Coursera_final_project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Capstone_Coursera_final_project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F95929329E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Capstone_Coursera_final_projectApp.swift; sourceTree = "<group>"; };
 		7F95929729E54BC100022B95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F95929A29E54BC100022B95 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7F9592A129E54C6E00022B95 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		7F9C815F29E8A09E002ACFD5 /* Dish+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dish+CoreDataClass.swift"; sourceTree = "<group>"; };
+		7F9C816029E8A09E002ACFD5 /* Dish+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dish+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +71,13 @@
 		7F95929229E54BC000022B95 /* iOS_Capstone_Coursera_final_project */ = {
 			isa = PBXGroup;
 			children = (
-				7F46D30C29E6049200FDE3BD /* NavigationTest.swift */,
+				7F9C815F29E8A09E002ACFD5 /* Dish+CoreDataClass.swift */,
+				7F9C816029E8A09E002ACFD5 /* Dish+CoreDataProperties.swift */,
+				7F3208D129E7E2F40029C6B1 /* Persistence.swift */,
+				7F3208D429E7E3420029C6B1 /* MenuList.swift */,
+				7F3208D629E7E3550029C6B1 /* MenuItem.swift */,
 				7F26B53629E5F4620083D19E /* Home.swift */,
+				7F3208D829E7F12E0029C6B1 /* ExampleDatabase.xcdatamodeld */,
 				7F46D30A29E5F7D700FDE3BD /* Menu.swift */,
 				7F2713E129E694C2000ACB6C /* UserProfile.swift */,
 				7F95929329E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift */,
@@ -152,12 +167,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F3208DA29E7F12E0029C6B1 /* ExampleDatabase.xcdatamodeld in Sources */,
+				7F3208D329E7E2F40029C6B1 /* Persistence.swift in Sources */,
+				7F9C816229E8A09E002ACFD5 /* Dish+CoreDataProperties.swift in Sources */,
 				7F9592A229E54C6E00022B95 /* Onboarding.swift in Sources */,
 				7F2713E429E69801000ACB6C /* K.swift in Sources */,
 				7F26B53729E5F4620083D19E /* Home.swift in Sources */,
 				7F2713E229E694C2000ACB6C /* UserProfile.swift in Sources */,
-				7F46D30D29E6049200FDE3BD /* NavigationTest.swift in Sources */,
+				7F9C816129E8A09E002ACFD5 /* Dish+CoreDataClass.swift in Sources */,
 				7F46D30B29E5F7D700FDE3BD /* Menu.swift in Sources */,
+				7F3208D729E7E3550029C6B1 /* MenuItem.swift in Sources */,
+				7F3208D529E7E3420029C6B1 /* MenuList.swift in Sources */,
 				7F95929429E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,6 +379,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7F3208D829E7F12E0029C6B1 /* ExampleDatabase.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7F3208D929E7F12E0029C6B1 /* ExampleDatabase.xcdatamodel */,
+			);
+			currentVersion = 7F3208D929E7F12E0029C6B1 /* ExampleDatabase.xcdatamodel */;
+			path = ExampleDatabase.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7F95928829E54BC000022B95 /* Project object */;
 }

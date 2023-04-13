@@ -60,8 +60,9 @@ struct Onboarding: View {
                 .padding(.all, 30.0)
             }
             .navigationDestination(isPresented: $isLoggedIn) {
-                Home()
+                Home().navigationBarBackButtonHidden(true)
             }
+            
         }
         
     }
