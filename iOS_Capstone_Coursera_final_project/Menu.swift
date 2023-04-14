@@ -4,7 +4,7 @@
 //
 //  Created by CHIARELLO Berardino - ADECCO on 11/04/23.
 //
-
+import CoreData
 import SwiftUI
 
 struct Menu: View {
@@ -62,23 +62,37 @@ struct Menu: View {
             if let data = data{
                 do{
                     let tasks = try decoder.decode(MenuList.self, from: data)
-                    //Create a dish entity and assign the data in
-                    for item in tasks.menu{
-                        let menuItem = Dish(context: viewContext)
-                        menuItem.title = item.title
-                        menuItem.category = item.category
-                        menuItem.id = Int64(item.id)
-                        menuItem.image = item.image
-                        menuItem.price = item.price
-                        menuItem.itemDescription = item.itemDescription
+                    
+                    for item in tasks.menu {
+                        if !isExist(id: item.id) {
+                            let menuItem = Dish(context: viewContext)
+                            menuItem.title = item.title
+                            menuItem.category = item.category
+                            menuItem.id = Int64(item.id)
+                            menuItem.image = item.image
+                            menuItem.price = item.price
+                            menuItem.itemDescription = item.itemDescription
+                        }
+                        else{
+                            return
+                        }
                     }
-                    try? viewContext.save()
-                } catch {
-                    print(error)
-                }
+                
+                try? viewContext.save()
+            } catch {
+                print(error)
             }
         }
-        task.resume()
+    }
+    task.resume()
+}
+    
+    func isExist(id: Int) -> Bool {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Dish")
+        fetchRequest.predicate = NSPredicate(format: "id = %d", id)
+
+        let res = try! viewContext.fetch(fetchRequest)
+        return res.count > 0 ? true : false
     }
 
 }

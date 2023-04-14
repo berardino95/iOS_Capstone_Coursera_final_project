@@ -1,16 +1,17 @@
 import CoreData
 import Foundation
 
-struct PersistenceController {
-    static let shared = PersistenceController()
+class PersistenceController: ObservableObject {
 
-    let container: NSPersistentContainer
+    let container = NSPersistentContainer(name: "ExampleDatabase")
 
     init() {
-        container = NSPersistentContainer(name: "ExampleDatabase")
-        container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
-        container.loadPersistentStores(completionHandler: {_,_ in })
-        container.viewContext.automaticallyMergesChangesFromParent = true
+        container.loadPersistentStores{ description, error in
+            if let error = error {
+                print("Core data failed to load: \(error.localizedDescription)")
+            }
+            
+        }
     }
     
     func clear() {
