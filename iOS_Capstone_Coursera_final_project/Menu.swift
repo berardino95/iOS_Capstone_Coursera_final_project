@@ -13,37 +13,43 @@ struct Menu: View {
     @FetchRequest(sortDescriptors: []) var dishes: FetchedResults<Dish>
     
     var body: some View {
-        VStack(spacing: 30.0){
-            Text("Little lemon")
-            Text("Chicago")
-            Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+        VStack{
+            
+            VStack(spacing: 30.0) {
+                Image("Logo")
+                Text("Chicago")
+                Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+            }
+            .padding(20)
             
             List{
                 ForEach(dishes){dish in
-                    HStack{
-                        Text("\(dish.title ?? "Title") \(dish.price ?? "0,00")$")
-                        Spacer()
-                        AsyncImage(url: URL(string: dish.image!)){ image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        } placeholder: {
-                            Color.gray
+                    NavigationLink(destination: DishDetails(dish: dish)){
+                        HStack{
+                            Text("\(dish.title ?? "Title") \(dish.price ?? "0,00")$")
+                            Spacer()
+                            AsyncImage(url: URL(string: dish.image!)){ image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                            } placeholder: {
+                                Color.gray
+                            }
+                            .frame(width:50, height: 50)
+                            .cornerRadius(10)
+                            
                         }
-                        .frame(width:50, height: 50)
-                        .cornerRadius(10)
                         
                     }
                 }
-        }
+            }
             
         }
         
-        .padding(20.0)
+        .padding(0)
         .onAppear{getMenuData()}
-    
-    }
         
+    }
     
     func getMenuData() {
         
@@ -66,6 +72,7 @@ struct Menu: View {
                         menuItem.price = item.price
                         menuItem.itemDescription = item.itemDescription
                     }
+                    try? viewContext.save()
                 } catch {
                     print(error)
                 }
@@ -73,7 +80,7 @@ struct Menu: View {
         }
         task.resume()
     }
-    
+
 }
 
 struct Menu_Previews: PreviewProvider {
