@@ -9,10 +9,14 @@ import SwiftUI
 
 struct Menu: View {
     
+    @State private var searchText: String = ""
+    
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(sortDescriptors: []) var dishes: FetchedResults<Dish>
+    //    @FetchRequest(sortDescriptors: buildSortDescriptor()) var dishes: FetchedResults<Dish>
+    
     
     var body: some View {
+        
         VStack{
             
             VStack(spacing: 30.0) {
@@ -22,33 +26,53 @@ struct Menu: View {
             }
             .padding(20)
             
-            List{
-                ForEach(dishes){dish in
-                    NavigationLink(destination: DishDetails(dish: dish)){
-                        HStack{
-                            Text("\(dish.title ?? "Title") \(dish.price ?? "0,00")$")
-                            Spacer()
-                            AsyncImage(url: URL(string: dish.image!)){ image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                            } placeholder: {
-                                Color.gray
+            TextField("Search menu", text:$searchText)
+                .textFieldStyle(SearchBarStyle())
+                .autocorrectionDisabled(true)
+            
+            FetchedObjects(
+                predicate:buildPredicate(),
+                sortDescriptors: buildSortDescriptor()) { (dishes: [Dish]) in
+                    List{
+                        ForEach(dishes){dish in
+                            NavigationLink(destination: DishDetails(dish: dish)){
+                                HStack{
+                                    Text("\(dish.title ?? "Title") \(dish.price ?? "0,00")$")
+                                    Spacer()
+                                    AsyncImage(url: URL(string: dish.image!)){ image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                    } placeholder: {
+                                        Color.gray
+                                    }
+                                    .frame(width:50, height: 50)
+                                    .cornerRadius(10)
+                                }
                             }
-                            .frame(width:50, height: 50)
-                            .cornerRadius(10)
-                            
                         }
-                        
                     }
                 }
-            }
+                .scrollContentBackground(.hidden)
             
         }
-        
         .padding(0)
         .onAppear{getMenuData()}
         
+    }
+    
+    
+    func buildPredicate() -> NSPredicate {
+        if searchText.isEmpty {
+            return NSPredicate(value: true)
+        } else {
+            return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        }
+        
+    }
+    
+    func buildSortDescriptor() -> [NSSortDescriptor] {
+        return [NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.localizedStandardCompare))]
     }
     
     func getMenuData() {
@@ -77,24 +101,41 @@ struct Menu: View {
                             return
                         }
                     }
-                
-                try? viewContext.save()
-            } catch {
-                print(error)
+                    
+                    try? viewContext.save()
+                } catch {
+                    print(error)
+                }
             }
         }
+        task.resume()
     }
-    task.resume()
-}
     
     func isExist(id: Int) -> Bool {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Dish")
         fetchRequest.predicate = NSPredicate(format: "id = %d", id)
-
+        
         let res = try! viewContext.fetch(fetchRequest)
         return res.count > 0 ? true : false
     }
+}
 
+
+
+//TextField Style
+struct SearchBarStyle : TextFieldStyle{
+    func _body (configuration: TextField<Self._Label>) -> some View {
+        ZStack{
+            configuration
+                .padding(10)
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(hex: 0x495E57), lineWidth: 1.5)
+                .frame(height: 40)
+        }
+        .padding(.horizontal, 20)
+        
+        
+    }
 }
 
 struct Menu_Previews: PreviewProvider {

@@ -15,6 +15,7 @@
 		7F3208D529E7E3420029C6B1 /* MenuList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3208D429E7E3420029C6B1 /* MenuList.swift */; };
 		7F3208D729E7E3550029C6B1 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3208D629E7E3550029C6B1 /* MenuItem.swift */; };
 		7F3208DA29E7F12E0029C6B1 /* ExampleDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7F3208D829E7F12E0029C6B1 /* ExampleDatabase.xcdatamodeld */; };
+		7F3263BE29EC4965006D02EA /* FetchedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3263BD29EC4965006D02EA /* FetchedObjects.swift */; };
 		7F46D30B29E5F7D700FDE3BD /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F46D30A29E5F7D700FDE3BD /* Menu.swift */; };
 		7F95929429E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F95929329E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift */; };
 		7F95929829E54BC100022B95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F95929729E54BC100022B95 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		7F3208D429E7E3420029C6B1 /* MenuList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuList.swift; sourceTree = "<group>"; };
 		7F3208D629E7E3550029C6B1 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		7F3208D929E7F12E0029C6B1 /* ExampleDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExampleDatabase.xcdatamodel; sourceTree = "<group>"; };
+		7F3263BD29EC4965006D02EA /* FetchedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedObjects.swift; sourceTree = "<group>"; };
 		7F46D30A29E5F7D700FDE3BD /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		7F95929029E54BC000022B95 /* iOS_Capstone_Coursera_final_project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Capstone_Coursera_final_project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F95929329E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Capstone_Coursera_final_projectApp.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 		7F95929229E54BC000022B95 /* iOS_Capstone_Coursera_final_project */ = {
 			isa = PBXGroup;
 			children = (
+				7F3263BD29EC4965006D02EA /* FetchedObjects.swift */,
 				7F9C815F29E8A09E002ACFD5 /* Dish+CoreDataClass.swift */,
 				7F9C816029E8A09E002ACFD5 /* Dish+CoreDataProperties.swift */,
 				7F3208D129E7E2F40029C6B1 /* Persistence.swift */,
@@ -182,6 +185,7 @@
 				7F46D30B29E5F7D700FDE3BD /* Menu.swift in Sources */,
 				7F3208D729E7E3550029C6B1 /* MenuItem.swift in Sources */,
 				7F3208D529E7E3420029C6B1 /* MenuList.swift in Sources */,
+				7F3263BE29EC4965006D02EA /* FetchedObjects.swift in Sources */,
 				7F95929429E54BC000022B95 /* iOS_Capstone_Coursera_final_projectApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
