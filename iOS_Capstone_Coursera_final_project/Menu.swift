@@ -16,19 +16,39 @@ struct Menu: View {
     
     
     var body: some View {
-        
         VStack{
-            
-            VStack(spacing: 30.0) {
-                Image("Logo")
-                Text("Chicago")
-                Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+            Image("Logo")
+            VStack{
+                HStack(alignment: .bottom){
+                    VStack(alignment: .leading, spacing: 5.0) {
+                        Text("Little Lemon")
+                            .font(.largeTitle)
+                            .foregroundColor(Color(hex: 0xF4CE14))
+                        Text("Chicago")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .padding(.bottom, 15)
+                        Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                            .foregroundColor(.white)
+                            .font(.callout)
+                    }
+                    
+                    Image("HeroImage")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 120, height: 120)
+                        .cornerRadius(20)
+                }
+                .padding(.horizontal, 20)
+                
+                
+                TextField("Search menu", text:$searchText)
+                    .textFieldStyle(SearchBarStyle())
+                    .autocorrectionDisabled(true)
             }
-            .padding(20)
+            .padding(.vertical,20)
+            .background(Color(hex: 0x495E57))
             
-            TextField("Search menu", text:$searchText)
-                .textFieldStyle(SearchBarStyle())
-                .autocorrectionDisabled(true)
             
             FetchedObjects(
                 predicate:buildPredicate(),
@@ -126,16 +146,21 @@ struct Menu: View {
 struct SearchBarStyle : TextFieldStyle{
     func _body (configuration: TextField<Self._Label>) -> some View {
         ZStack{
-            configuration
-                .padding(10)
-            RoundedRectangle(cornerRadius: 10)
+            Rectangle()
                 .stroke(Color(hex: 0x495E57), lineWidth: 1.5)
-                .frame(height: 40)
+                .background(.white)
+                .cornerRadius(10)
+            HStack{
+                Image(systemName: "magnifyingglass")
+                configuration
+            }
+            .foregroundColor(.black)
+            .padding(10)
         }
         .padding(.horizontal, 20)
-        
-        
+        .frame(height: 40)
     }
+    
 }
 
 struct Menu_Previews: PreviewProvider {

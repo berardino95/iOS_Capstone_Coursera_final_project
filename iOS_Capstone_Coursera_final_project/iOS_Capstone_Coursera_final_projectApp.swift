@@ -10,11 +10,12 @@ import SwiftUI
 @main
 struct iOS_Capstone_Coursera_final_projectApp: App {
     @StateObject private var dataController = PersistenceController()
+    var isLoggedIn : Bool { UserDefaults.standard.bool(forKey: k.isLoggedIn) }
     
     var body: some Scene {
         WindowGroup {
-            Onboarding()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
+                Onboarding()
+                    .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }

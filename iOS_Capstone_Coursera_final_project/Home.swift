@@ -16,6 +16,7 @@ struct Home: View {
                 .tabItem{
                     Label("Menù", systemImage: "list.dash")
                 }
+            
             UserProfile()
                 .tabItem{
                     Label("Profile", systemImage: "square.and.pencil")

@@ -53,6 +53,7 @@ struct UserProfile: View {
     func logout(){
         defaults.set(false, forKey: k.isLoggedIn)
         self.presentation.wrappedValue.dismiss()
+        UserDefaults.resetStandardUserDefaults()
     }
 }
 

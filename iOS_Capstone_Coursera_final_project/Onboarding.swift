@@ -11,6 +11,8 @@ let k = K()
 
 struct Onboarding: View {
     
+    @Environment(\.presentationMode) var presentation
+    
     @State  private var firstName: String = ""
     @State private var lastName: String = ""
     @State private var email: String = ""
@@ -59,6 +61,10 @@ struct Onboarding: View {
                 }
                 .padding(.all, 30.0)
             }
+            .onAppear{
+                isLoggedIn = UserDefaults.standard.bool(forKey: k.isLoggedIn)
+                
+            }
             .navigationDestination(isPresented: $isLoggedIn) {
                 Home().navigationBarBackButtonHidden(true)
             }
@@ -70,15 +76,15 @@ struct Onboarding: View {
     public func buttonPressed() {
         if (firstName.isEmpty || lastName.isEmpty || email.isEmpty) {
             isShowed.toggle()
-            isLoggedIn = false
             
         } else{
+            
+            isLoggedIn = true
             let defaults = UserDefaults.standard
             defaults.set(firstName, forKey: k.firstName)
             defaults.set(lastName, forKey: k.lastName)
             defaults.set(email, forKey: k.email)
-            isLoggedIn = true
-            defaults.set(isLoggedIn, forKey: k.isLoggedIn)
+            defaults.set(true, forKey: k.isLoggedIn)
             
             firstName = "" ; lastName = "" ; email = ""
             
