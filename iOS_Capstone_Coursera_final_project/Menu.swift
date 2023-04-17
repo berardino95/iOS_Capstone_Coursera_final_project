@@ -10,14 +10,14 @@ import SwiftUI
 struct Menu: View {
     
     @State private var searchText: String = ""
-    
+    @State private var filterCategory: String = ""
     @Environment(\.managedObjectContext) private var viewContext
-    //    @FetchRequest(sortDescriptors: buildSortDescriptor()) var dishes: FetchedResults<Dish>
     
     
     var body: some View {
         VStack{
             Image("Logo")
+            
             VStack{
                 HStack(alignment: .bottom){
                     VStack(alignment: .leading, spacing: 5.0) {
@@ -50,15 +50,44 @@ struct Menu: View {
             .background(Color(hex: 0x495E57))
             
             
+            
+            
             FetchedObjects(
                 predicate:buildPredicate(),
                 sortDescriptors: buildSortDescriptor()) { (dishes: [Dish]) in
+                    ScrollView(.horizontal, showsIndicators: false){
+                        HStack{
+                            let categories = getCategory(from: dishes)
+                            ForEach(categories, id: \.self){ category in
+                                    Button(category){
+                                        if filterCategory.isEmpty{
+                                            filterCategory = category
+                                        } else {
+                                            filterCategory = ""
+                                        }
+                                    }
+                                    .buttonStyle(CategoryButton())
+                            }
+                        }
+                        .padding(20)
+                    }
                     List{
                         ForEach(dishes){dish in
                             NavigationLink(destination: DishDetails(dish: dish)){
                                 HStack{
-                                    Text("\(dish.title ?? "Title") \(dish.price ?? "0,00")$")
+                                    VStack(alignment: .leading, spacing: 5){
+                                        Text(dish.title ?? "Title")
+                                            .font(.title2)
+                                        Text(dish.itemDescription ?? "Description")
+                                            .font(.subheadline)
+                                            .lineLimit(2)
+                                        Text("\(dish.price ?? "Price") €")
+                                            .font(.title3)
+                                            .foregroundColor(Color(hex: 0x495E57))
+                                    }
+                                    
                                     Spacer()
+                                    
                                     AsyncImage(url: URL(string: dish.image!)){ image in
                                         image
                                             .resizable()
@@ -66,7 +95,7 @@ struct Menu: View {
                                     } placeholder: {
                                         Color.gray
                                     }
-                                    .frame(width:50, height: 50)
+                                    .frame(width:80, height: 80)
                                     .cornerRadius(10)
                                 }
                             }
@@ -74,21 +103,37 @@ struct Menu: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
-            
         }
-        .padding(0)
         .onAppear{getMenuData()}
         
     }
     
     
     func buildPredicate() -> NSPredicate {
-        if searchText.isEmpty {
+        if searchText.isEmpty && filterCategory.isEmpty {
             return NSPredicate(value: true)
-        } else {
+        } else if  filterCategory.isEmpty {
             return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        } else if searchText.isEmpty {
+            return NSPredicate(format: "category CONTAINS[cd] %@", filterCategory)
+        } else {
+            return NSPredicate(format: "(title < %@) AND (category CONTAINS[cd] %@)", searchText, filterCategory)
         }
         
+    }
+    
+    func getCategory(from dishes:[Dish]) -> [String] {
+        var cat : [String] = []
+                  for dish in dishes {
+                      if let category = dish.category {
+                          if !cat.contains(category){
+                              cat.append(category)
+                          } else {
+                              continue
+                          }
+                      }
+                   }
+        return cat
     }
     
     func buildSortDescriptor() -> [NSSortDescriptor] {
@@ -137,6 +182,18 @@ struct Menu: View {
         
         let res = try! viewContext.fetch(fetchRequest)
         return res.count > 0 ? true : false
+    }
+}
+
+//Button style
+struct CategoryButton: ButtonStyle {
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(.white)
+            .padding(10)
+            .background(configuration.isPressed ? Color(hex: 0xF4CE14) : Color(hex: 0x495E57))
+            .cornerRadius(10)
     }
 }
 

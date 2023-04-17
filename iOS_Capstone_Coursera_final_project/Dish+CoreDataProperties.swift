@@ -28,3 +28,30 @@ extension Dish {
 extension Dish : Identifiable {
 
 }
+
+extension Dish {
+    @discardableResult
+    static func makePreview(count: Int,in context: NSManagedObjectContext) -> [Dish] {
+        var dishes = [Dish]()
+        for i in 0..<count {
+            let dish = Dish(context: context)
+            dish.category = "Category \(i)"
+            dish.itemDescription = "Lorem ipsum dolo sit amet"
+            dish.price = "12,20"
+            dish.title = "Title \(i)"
+            dish.image = "HTTPS \(i)"
+            dish.id = Int64(i)
+            dishes.append(dish)
+        }
+        return dishes
+    }
+    
+    static func preview(context: NSManagedObjectContext = PersistenceController.shared.viewContext) -> Dish {
+        return makePreview(count: 1, in: context)[0]
+    }
+
+    static func emptyPreview(context: NSManagedObjectContext = PersistenceController.shared.viewContext) -> Dish {
+        return Dish(context: context)
+    }
+    
+}

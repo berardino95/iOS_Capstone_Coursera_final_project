@@ -47,6 +47,6 @@ struct DishDetails: View {
 
 struct DishDetails_Previews: PreviewProvider {
     static var previews: some View {
-        DishDetails(dish: Dish())
+        DishDetails(dish: .preview())
     }
 }
