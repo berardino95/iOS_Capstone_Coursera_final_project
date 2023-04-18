@@ -15,7 +15,7 @@ struct Menu: View {
     
     
     var body: some View {
-        VStack{
+        VStack(spacing: 0){
             Image("Logo")
             
             VStack{
@@ -50,27 +50,31 @@ struct Menu: View {
             .background(Color(hex: 0x495E57))
             
             
+            FetchedObjects {(dishes:[Dish]) in
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        let categories = getCategory(from: dishes)
+                        ForEach(categories, id: \.self){ category in
+                                Button(category){
+                                    filterCategory = ""
+                                    if filterCategory.isEmpty{
+                                        filterCategory = category
+                                    } else {
+                                        filterCategory = ""
+                                    }
+                                    print(filterCategory)
+                                }
+                                .buttonStyle(CategoryButton())
+                        }
+                    }
+                    .padding(20)
+                }
+            }
             
             
             FetchedObjects(
                 predicate:buildPredicate(),
                 sortDescriptors: buildSortDescriptor()) { (dishes: [Dish]) in
-                    ScrollView(.horizontal, showsIndicators: false){
-                        HStack{
-                            let categories = getCategory(from: dishes)
-                            ForEach(categories, id: \.self){ category in
-                                    Button(category){
-                                        if filterCategory.isEmpty{
-                                            filterCategory = category
-                                        } else {
-                                            filterCategory = ""
-                                        }
-                                    }
-                                    .buttonStyle(CategoryButton())
-                            }
-                        }
-                        .padding(20)
-                    }
                     List{
                         ForEach(dishes){dish in
                             NavigationLink(destination: DishDetails(dish: dish)){
@@ -102,7 +106,8 @@ struct Menu: View {
                         }
                     }
                 }
-                .scrollContentBackground(.hidden)
+                .listStyle(.plain)
+                .listSectionSeparatorTint(Color(hex: 0x495E57))
         }
         .onAppear{getMenuData()}
         
@@ -110,14 +115,19 @@ struct Menu: View {
     
     
     func buildPredicate() -> NSPredicate {
-        if searchText.isEmpty && filterCategory.isEmpty {
+        if searchText.isEmpty && (filterCategory.isEmpty || filterCategory == "all") {
             return NSPredicate(value: true)
-        } else if  filterCategory.isEmpty {
+        } else if  filterCategory.isEmpty && !searchText.isEmpty {
             return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
-        } else if searchText.isEmpty {
+        } else if searchText.isEmpty && !filterCategory.isEmpty {
             return NSPredicate(format: "category CONTAINS[cd] %@", filterCategory)
+        } else if searchText.isEmpty && filterCategory == "all"{
+            return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        } else if !searchText.isEmpty && filterCategory == "all"{
+            return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+            
         } else {
-            return NSPredicate(format: "(title < %@) AND (category CONTAINS[cd] %@)", searchText, filterCategory)
+            return NSPredicate(format: "(title CONTAINS[cd] %@) AND (category CONTAINS[cd] %@)", searchText, filterCategory)
         }
         
     }
@@ -133,6 +143,7 @@ struct Menu: View {
                           }
                       }
                    }
+        cat.append("all")
         return cat
     }
     
@@ -187,13 +198,14 @@ struct Menu: View {
 
 //Button style
 struct CategoryButton: ButtonStyle {
-    
+    @State var isSelected : Bool = false
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundColor(.white)
             .padding(10)
             .background(configuration.isPressed ? Color(hex: 0xF4CE14) : Color(hex: 0x495E57))
             .cornerRadius(10)
+            
     }
 }
 
