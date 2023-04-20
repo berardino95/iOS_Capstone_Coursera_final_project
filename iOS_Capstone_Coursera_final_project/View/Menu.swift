@@ -12,11 +12,21 @@ struct Menu: View {
     @State private var searchText: String = ""
     @State private var filterCategory: String = ""
     @Environment(\.managedObjectContext) private var viewContext
-    
+    @FetchRequest(sortDescriptors: []) var fetchedDishes: FetchedResults<Dish>
     
     var body: some View {
         VStack(spacing: 0){
-            Image("Logo")
+                HStack(alignment: .center){
+                    Spacer()
+                    Spacer()
+                    Image("Logo")
+                    Spacer()
+                    Image("Profile")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                }
+                .padding(.bottom, 10)
+                .padding(.horizontal,20)
             
             VStack{
                 HStack(alignment: .bottom){
@@ -50,25 +60,32 @@ struct Menu: View {
             .background(Color(hex: 0x495E57))
             
             
-            FetchedObjects {(dishes:[Dish]) in
-                ScrollView(.horizontal, showsIndicators: false){
-                    HStack{
-                        let categories = getCategory(from: dishes)
-                        ForEach(categories, id: \.self){ category in
-                                Button(category){
+            ScrollView(.horizontal, showsIndicators: false){
+                HStack{
+                    let categories = getCategory(from: fetchedDishes)
+                    var categoriesDic = Dictionary(uniqueKeysWithValues: categories.map{ ($0, false) })
+                    
+                    //Button("array originale") {print(categoriesDic)}
+                    
+                    ForEach(categories, id: \.self){ category in
+                        if let category = category {
+                            Button(category){
+                                if !filterCategory.isEmpty && category == filterCategory {
                                     filterCategory = ""
-                                    if filterCategory.isEmpty{
-                                        filterCategory = category
-                                    } else {
-                                        filterCategory = ""
-                                    }
-                                    print(filterCategory)
+                                    categoriesDic[category] = false
+                                } else {
+                                    filterCategory = category
+                                    categoriesDic[category] = true
                                 }
-                                .buttonStyle(CategoryButton())
+                                
+                                print("\(category):\(categoriesDic[category]!)")
+                                print(categoriesDic)
+                            }
+                            .buttonStyle(CategoryButton(isSelected: categoriesDic[category]!))
                         }
                     }
-                    .padding(20)
                 }
+                .padding(20)
             }
             
             
@@ -132,17 +149,30 @@ struct Menu: View {
         
     }
     
-    func getCategory(from dishes:[Dish]) -> [String] {
+    func getCategoryDictionary(from categories:[String]) -> [String:Bool] {
+        var cat : [String:Bool] = [:]
+        for category in categories {
+            if cat[category] != nil {
+                continue
+            } else {
+                cat[category] = true
+            }
+        }
+        cat["all"] = true
+        return cat
+    }
+    
+    func getCategory(from dishes:FetchedResults<Dish>) -> [String] {
         var cat : [String] = []
-                  for dish in dishes {
-                      if let category = dish.category {
-                          if !cat.contains(category){
-                              cat.append(category)
-                          } else {
-                              continue
-                          }
-                      }
-                   }
+        for dish in dishes {
+            if let category = dish.category {
+                if !cat.contains(category){
+                    cat.append(category)
+                } else {
+                    continue
+                }
+            }
+        }
         cat.append("all")
         return cat
     }
@@ -198,14 +228,14 @@ struct Menu: View {
 
 //Button style
 struct CategoryButton: ButtonStyle {
-    @State var isSelected : Bool = false
+    @State var isSelected : Bool
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundColor(.white)
             .padding(10)
-            .background(configuration.isPressed ? Color(hex: 0xF4CE14) : Color(hex: 0x495E57))
+            .background(isSelected ? Color(hex: 0xF4CE14) : Color(hex: 0x495E57))
             .cornerRadius(10)
-            
+        
     }
 }
 

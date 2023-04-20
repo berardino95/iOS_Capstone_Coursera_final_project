@@ -13,7 +13,7 @@ struct DishDetails: View {
     
     var body: some View {
         GeometryReader{ geo in
-            VStack{
+            VStack(spacing: 0){
                 
                 Text(dish.title ?? "Title")
                     .font(.title)
@@ -28,17 +28,16 @@ struct DishDetails: View {
                 }
                 .frame(width: geo.size.width, height: geo.size.height/2)
                 .cornerRadius(10)
-                
-                HStack{
-                    Text("Price")
-                    Spacer()
-                    Text("\(dish.price ?? "0.00") €")
+                Spacer()
+                VStack(alignment: .leading, spacing: 20){
+                    Text(dish.itemDescription ?? "Missing description")
+                        
+                        .font(.title3)
+                    Text("\(dish.price ?? "Price") €")
+                        .font(.title2)
                 }
-                .padding(.horizontal, 30)
-                .padding(.vertical, 15)
-                
-                Text(dish.itemDescription ?? "Missing description")
-                    .padding(.horizontal, 30)
+                Spacer()
+                Spacer()
                 Spacer()
             }
         }
