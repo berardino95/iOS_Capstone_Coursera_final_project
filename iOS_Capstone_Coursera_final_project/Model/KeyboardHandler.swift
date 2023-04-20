@@ -16,7 +16,7 @@ final class KeyboardHandler: ObservableObject {
     
     private let keyboardWillShow = NotificationCenter.default
         .publisher(for: UIResponder.keyboardWillShowNotification)
-        .compactMap{($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height}
+        .compactMap{($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0 + 200}
     
     private let keyboardWillHide = NotificationCenter.default
         .publisher(for: UIResponder.keyboardDidHideNotification)

@@ -84,7 +84,7 @@ struct Onboarding: View {
                         }
                         .padding(.all, 30.0)
                     }
-                    .padding(.bottom, keyboardHandler.keyboardHeight + 200)
+                    .padding(.bottom, keyboardHandler.keyboardHeight)
                     .animation(.easeIn, value: 5)
             }
             .onAppear{
