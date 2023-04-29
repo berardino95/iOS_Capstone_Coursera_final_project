@@ -14,6 +14,10 @@ struct Menu: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: []) var fetchedDishes: FetchedResults<Dish>
     
+    @State private var categories : [String] = []
+    @State private var categoriesDic : [String : Bool] = [:]
+
+    
     var body: some View {
         VStack(spacing: 0){
                 HStack(alignment: .center){
@@ -62,26 +66,23 @@ struct Menu: View {
             
             ScrollView(.horizontal, showsIndicators: false){
                 HStack{
-                    let categories = getCategory(from: fetchedDishes)
-                    var categoriesDic = Dictionary(uniqueKeysWithValues: categories.map{ ($0, false) })
-                    
-                    //Button("array originale") {print(categoriesDic)}
                     
                     ForEach(categories, id: \.self){ category in
                         if let category = category {
                             Button(category){
                                 if !filterCategory.isEmpty && category == filterCategory {
                                     filterCategory = ""
-                                    categoriesDic[category] = false
+                                    categoriesDic.keys.forEach { categoriesDic[$0] = false }
                                 } else {
                                     filterCategory = category
+                                    categoriesDic.keys.forEach { categoriesDic[$0] = false }
                                     categoriesDic[category] = true
                                 }
                                 
                                 print("\(category):\(categoriesDic[category]!)")
                                 print(categoriesDic)
                             }
-                            .buttonStyle(CategoryButton(isSelected: categoriesDic[category]!))
+                            .buttonStyle(CategoryButton(isSelected: categoriesDic[category] ?? false))
                         }
                     }
                 }
@@ -126,7 +127,11 @@ struct Menu: View {
                 .listStyle(.plain)
                 .listSectionSeparatorTint(Color(hex: 0x495E57))
         }
-        .onAppear{getMenuData()}
+        .onAppear{
+            getMenuData()
+            categories = getCategory(from: fetchedDishes)
+            categoriesDic = Dictionary(uniqueKeysWithValues: categories.map{ ($0, false) })
+        }
         
     }
     
@@ -228,7 +233,7 @@ struct Menu: View {
 
 //Button style
 struct CategoryButton: ButtonStyle {
-    @State var isSelected : Bool
+    var isSelected : Bool
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundColor(.white)
